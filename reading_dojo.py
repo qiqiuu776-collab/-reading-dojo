@@ -4,7 +4,7 @@ ReadingDojo - Daily English News
 抓取英文新闻RSS → 日期过滤 → 飞书推送链接+标题+简介（英文）
 你自己读链接，获取观点
 """
-import os, sys, json, urllib.request, time, io, re
+import os, json, urllib.request, time, io, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -16,7 +16,11 @@ if sys.platform == 'win32':
     os.system('chcp 65001 >nul 2>&1')
 
 # ==== 配置 ====
-FEISHU_WEBHOOK = "https://open.feishu.cn/open-apis/bot/v2/hook/dcc209eb-3184-49a3-83ce-19268166eee8"
+import os
+  FEISHU_WEBHOOK = os.environ.get("FEISHU_WEBHOOK")
+  if not FEISHU_WEBHOOK:
+      print("Error: FEISHU_WEBHOOK environment variable not set")
+      exit(1)
 DATA_DIR = Path("D:/ReadingDojo/data")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
